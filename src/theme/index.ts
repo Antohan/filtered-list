@@ -9,28 +9,31 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #E5E5E5;
+
+    background-color: #e5e5e5;
   }
 `;
 
-const StyledContainer = styled.section`
-  max-width: 1440px;
-  width: auto;
+const StyledContainer = styled.section.attrs((props: any) => ({
+  maxWidth: `${props.maxWidth}px` || "1440px,"
+}))`
+  max-width: ${props => props.maxWidth};
+  width: 100%;
   margin: 0 auto;
-  padding 0 24px;
-  display: flex;
-  justify-content: center;
+  padding: 0 24px;
 `;
 
 const StyledList = styled.ul`
   list-style: none;
   max-width: 1270px;
   padding: 0;
+  margin: 24px auto;
 `;
 
 const StyledCard = styled.li`
@@ -86,6 +89,26 @@ const StyledToolbar = styled.div`
   align-items: center;
 `;
 
+const StyledLabel = styled.label`
+  color: #fff;
+  font-size: 18px;
+  line-height: 21px;
+
+  span {
+    margin-right: 12px;
+  }
+`;
+
+const StyledInput = styled.input`
+  background: #fff;
+  border: 1px solid #cacaca;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 15px 12px;
+  outline: none;
+  width: 244px;
+`;
+
 export {
   GlobalStyle,
   StyledContainer,
@@ -96,4 +119,6 @@ export {
   StyledCardText,
   StyledJambo,
   StyledToolbar,
+  StyledLabel,
+  StyledInput,
 };

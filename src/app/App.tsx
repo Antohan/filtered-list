@@ -6,15 +6,23 @@ import Toolbar from '../app/components/Toolbar';
 import CommentsList from '../app/features/comments/CommentsList';
 import { GlobalStyle, StyledContainer, } from '../theme';
 import { commentSelector, fetchComments } from '../store/commentsSlice';
+import useQuery from '../utils/hooks/useQuery';
 
 
 function App() {
+  const query = useQuery();
   const dispatch = useDispatch();
   const { comments, loading, hasError } = useSelector(commentSelector);
 
   useEffect(() => {
     dispatch(fetchComments());
   }, [dispatch]);
+
+  const filteredComments = () => {
+    const search = query.get('search') || '';
+    
+    return comments.filter(comment => comment.name.includes(search));
+  }
 
   const renderCommetns = () => {
     if (loading) {
@@ -24,7 +32,7 @@ function App() {
       return <p>Cannot display comments...</p>
     }
 
-    return <CommentsList comments={comments} />
+    return <CommentsList comments={filteredComments()} />
   }
 
   return (

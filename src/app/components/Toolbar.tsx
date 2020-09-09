@@ -18,7 +18,7 @@ import {
 const Toolbar = (props: RouteComponentProps) => {
   const query = useQuery();
   const [search, setSearch] = useState(query.get('search') || '');
-  const [domains, setDomains] = useState(query.getAll('domains'));
+  const [domains, setDomains] = useState(query.getAll('domain'));
 
   const setSearchParams = (searchValue: string, domainsList: string[]) => {
     const searchParams = new URLSearchParams();

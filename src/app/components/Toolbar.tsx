@@ -18,18 +18,18 @@ import {
 const Toolbar = (props: RouteComponentProps) => {
   const query = useQuery();
   const [search, setSearch] = useState(query.get('search') || '');
-  const [domens, setDomens] = useState(query.getAll('domen'));
+  const [domains, setDomains] = useState(query.getAll('domains'));
 
-  const setSearchParams = (searchValue: string, domensList: string[]) => {
+  const setSearchParams = (searchValue: string, domainsList: string[]) => {
     const searchParams = new URLSearchParams();
 
     if (searchValue) {
       searchParams.set('search', searchValue)
     }
 
-    if (domensList && domensList.length) {
-      for (const domen of domensList) {
-        searchParams.append('domen', domen);
+    if (domainsList && domainsList.length) {
+      for (const domain of domainsList) {
+        searchParams.append('domain', domain);
       }
     }
 
@@ -38,16 +38,16 @@ const Toolbar = (props: RouteComponentProps) => {
 
   const handleSearchInput = (value: string) => {
     setSearch(value);
-    setSearchParams(value, domens);
+    setSearchParams(value, domains);
   };
 
-  const handleDomenChecked = (value: string) => {
-    const updatedDomens = domens.includes(value)
-      ? domens.filter(domen => domen !== value)
-      : domens.concat(value);
+  const handleDomainsChecked = (value: string) => {
+    const updatedDomains = domains.includes(value)
+      ? domains.filter(domain => domain !== value)
+      : domains.concat(value);
 
-    setDomens(updatedDomens);
-    setSearchParams(search, updatedDomens);
+    setDomains(updatedDomains);
+    setSearchParams(search, updatedDomains);
   }
 
   return (
@@ -70,9 +70,9 @@ const Toolbar = (props: RouteComponentProps) => {
           >
             <StyledCaption margin="0 30px 0 0">Show Only</StyledCaption>
             <CheckboxGroup
-              name="domen"
-              onClickCheckboxButton={handleDomenChecked}
-              selectedValues={domens}
+              name="domain"
+              onClickCheckboxButton={handleDomainsChecked}
+              selectedValues={domains}
             >
               <Checkbox value="org" labelText=".org" />
               <Checkbox value="com" labelText=".com" />

@@ -20,8 +20,12 @@ function App() {
 
   const filteredComments = () => {
     const search = query.get('search') || '';
+    const domens = query.getAll('domen');
+    const hasDomens = domens.length > 0;
     
-    return comments.filter(comment => comment.name.includes(search));
+    return comments
+      .filter(comment => comment.name.includes(search.toLowerCase()))
+      .filter(comment => !hasDomens || domens.some(domen => comment.email.endsWith(domen)));
   }
 
   const renderCommetns = () => {

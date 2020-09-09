@@ -52,7 +52,7 @@ const Toolbar = (props: RouteComponentProps) => {
 
   return (
     <StyledToolbar>
-      <StyledContainer maxWidth="1318">
+      <StyledContainer>
         <StyledFlex>
           <StyledLabel>
             <span>Search</span>

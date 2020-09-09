@@ -4,8 +4,8 @@ import { StyledFlex } from '../../theme';
 interface Props {
   name: string;
   selectedValues: string[];
-  onClickCheckboxButton: Function;
-  children?: React.ReactNode;
+  onClickCheckboxButton(value: string): void;
+  children: React.ReactNode[];
 }
 
 const CheckboxGroup = (props: Props) => {
@@ -18,11 +18,11 @@ const CheckboxGroup = (props: Props) => {
 
   return (
     <StyledFlex>
-      {React.Children.map<React.ReactNode, React.ReactNode>(children, (element: any) =>
-        React.cloneElement(element, {
-          ...element.props,
-          onChange: () => onClickCheckboxButton(element.props.value),
-          checked: selectedValues.includes(element.props.value),
+      {React.Children.map(children, (checkbox: any) =>
+        React.cloneElement(checkbox, {
+          ...checkbox.props,
+          onChange: () => onClickCheckboxButton(checkbox.props.value),
+          checked: selectedValues.includes(checkbox.props.value),
           name,
         })
       )}

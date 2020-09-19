@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { StyledCheckbox } from '../../theme';
 
 interface Props {

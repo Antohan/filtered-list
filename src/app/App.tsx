@@ -8,7 +8,6 @@ import { GlobalStyle, StyledContainer, } from '../theme';
 import { commentSelector, fetchComments } from '../store/commentsSlice';
 import useQuery from '../utils/hooks/useQuery';
 
-
 function App() {
   const query = useQuery();
   const dispatch = useDispatch();

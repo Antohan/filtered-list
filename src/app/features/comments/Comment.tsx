@@ -8,7 +8,6 @@ import {
 } from '../../../theme';
 import { Comment } from '../../../models';
 
-
 const CommentItem = ({ name, email, body }: Comment) => (
   <StyledCard>
     <StyledCardTitle>{name}</StyledCardTitle>

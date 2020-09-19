@@ -1,9 +1,9 @@
 import React from 'react';
 
 import CommentItem from './Comment';
+
 import { StyledList } from '../../../theme';
 import { Comment } from '../../../models';
-
 
 interface Props {
   comments: Comment[];

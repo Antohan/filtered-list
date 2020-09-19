@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-const StyledCard = styled.li`
+const StyledCard = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   padding: 28px;
   margin-bottom: 24px;
   background-color: #fff;
+  height: 131px;
 `;
 
 const StyledCardTitle = styled.div`

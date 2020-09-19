@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
 
     background-color: #e5e5e5;
+    overflow-y: hidden;
   }
 `;
 

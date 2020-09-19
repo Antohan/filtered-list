@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import CheckboxGroup from './CheckboxGroup';
@@ -14,41 +14,51 @@ import {
   StyledCaption,
 } from '../../theme';
 
-
 const Toolbar = (props: RouteComponentProps) => {
   const query = useQuery();
   const [search, setSearch] = useState(query.get('search') || '');
   const [domains, setDomains] = useState(query.getAll('domain'));
 
-  const setSearchParams = (searchValue: string, domainsList: string[]) => {
-    const searchParams = new URLSearchParams();
+  const setSearchParams = useCallback(
+    (searchValue: string, domainsList: string[]) => {
+      const searchParams = new URLSearchParams();
 
-    if (searchValue) {
-      searchParams.set('search', searchValue)
-    }
-
-    if (domainsList && domainsList.length) {
-      for (const domain of domainsList) {
-        searchParams.append('domain', domain);
+      if (searchValue) {
+        searchParams.set('search', searchValue)
       }
-    }
 
-    props.history.push({search: `?${searchParams.toString()}`});
-  }
+      if (domainsList && domainsList.length) {
+        for (const domain of domainsList) {
+          searchParams.append('domain', domain);
+        }
+      }
 
-  const handleSearchInput = (value: string) => {
-    setSearch(value);
-    setSearchParams(value, domains);
-  };
+      props.history.push({search: `?${searchParams.toString()}`});
+    },
+    [props.history],
+  );
 
-  const handleDomainsChecked = (value: string) => {
-    const updatedDomains = domains.includes(value)
-      ? domains.filter(domain => domain !== value)
-      : domains.concat(value);
+  const handleSearchInput = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
 
-    setDomains(updatedDomains);
-    setSearchParams(search, updatedDomains);
-  }
+      setSearch(value);
+      setSearchParams(value, domains);
+    },
+    [domains, setSearchParams],
+  );
+
+  const handleDomainsChecked = useCallback(
+    (value: string) => {
+      const updatedDomains = domains.includes(value)
+        ? domains.filter(domain => domain !== value)
+        : domains.concat(value);
+
+      setDomains(updatedDomains);
+      setSearchParams(search, updatedDomains);
+    },
+    [domains, search, setSearchParams],
+  );
 
   return (
     <StyledToolbar>
@@ -60,7 +70,7 @@ const Toolbar = (props: RouteComponentProps) => {
               type="text"
               placeholder="Enter Name"
               value={search}
-              onChange={(event) => handleSearchInput(event.target.value)}
+              onChange={handleSearchInput}
             />
           </StyledLabel>
 
